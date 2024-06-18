@@ -1,3 +1,5 @@
+// src/components/ui/burger-constructor/burger-constructor.tsx
+
 import React, { FC } from 'react';
 import {
   Button,
@@ -20,7 +22,10 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
 }) => (
   <section className={styles.burger_constructor}>
     {constructorItems.bun ? (
-      <div className={`${styles.element} mb-4 mr-4`}>
+      <div
+        className={`${styles.element} mb-4 mr-4`}
+        key={constructorItems.bun._id}
+      >
         <ConstructorElement
           type='top'
           isLocked
@@ -32,6 +37,7 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
     ) : (
       <div
         className={`${styles.noBuns} ${styles.noBunsTop} ml-8 mb-4 mr-5 text text_type_main-default`}
+        key='noBunTop'
       >
         Выберите булки
       </div>
@@ -44,20 +50,24 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
               ingredient={item}
               index={index}
               totalItems={constructorItems.ingredients.length}
-              key={item.id}
+              key={item._id}
             />
           )
         )
       ) : (
         <div
           className={`${styles.noBuns} ml-8 mb-4 mr-5 text text_type_main-default`}
+          key='noIngredients'
         >
           Выберите начинку
         </div>
       )}
     </ul>
     {constructorItems.bun ? (
-      <div className={`${styles.element} mt-4 mr-4`}>
+      <div
+        className={`${styles.element} mt-4 mr-4`}
+        key={`${constructorItems.bun._id}-bottom`}
+      >
         <ConstructorElement
           type='bottom'
           isLocked
@@ -69,6 +79,7 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
     ) : (
       <div
         className={`${styles.noBuns} ${styles.noBunsBottom} ml-8 mb-4 mr-5 text text_type_main-default`}
+        key='noBunBottom'
       >
         Выберите булки
       </div>
