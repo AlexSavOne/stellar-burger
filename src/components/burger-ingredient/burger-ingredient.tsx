@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { setSelectedIngredient } from '../../services/ingredientsSlice';
 import { setConstructorItems } from '../../services/burgerConstructorSlice';
 import { BurgerIngredientUI } from '@ui';
+import { TConstructorIngredient } from '../../utils/types';
 import { TBurgerIngredientProps } from './type';
 
 export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
@@ -14,7 +15,12 @@ export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
     const dispatch = useDispatch();
 
     const handleAdd = () => {
-      dispatch(setConstructorItems(ingredient));
+      const constructorIngredient: TConstructorIngredient = {
+        id: ingredient._id,
+        ...ingredient
+      };
+
+      dispatch(setConstructorItems(constructorIngredient));
     };
 
     const handleSelect = () => {

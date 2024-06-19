@@ -1,16 +1,25 @@
-import { FC, SyntheticEvent, useEffect, useState } from 'react';
+import { FC, FormEvent, useEffect, useState } from 'react';
 import { ProfileUI } from '@ui-pages';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../services/store';
+import { useDispatch, useSelector } from '../../hooks/hooks';
 import { updateUserApi, getUserApi } from '../../utils/burger-api';
+import { checkAuth } from '../../services/authSlice';
 
 export const Profile: FC = () => {
-  const user = useSelector((state: RootState) => state.auth.user);
-  const [formValue, setFormValue] = useState({
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+
+  interface FormValueState {
+    name: string;
+    email: string;
+    password: string;
+  }
+
+  const [formValue, setFormValue] = useState<FormValueState>({
     name: user?.name || '',
     email: user?.email || '',
     password: ''
   });
+
   const [isFormChanged, setIsFormChanged] = useState(false);
 
   useEffect(() => {
@@ -35,14 +44,14 @@ export const Profile: FC = () => {
           });
         }
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error('Ошибка при загрузке данных пользователя:', error);
       }
     };
 
     fetchData();
   }, []);
 
-  const handleSubmit = async (e: SyntheticEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const userDataToUpdate = {
@@ -55,13 +64,14 @@ export const Profile: FC = () => {
       const updatedUser = await updateUserApi(userDataToUpdate);
       if (updatedUser.success) {
         setIsFormChanged(false);
+        dispatch(checkAuth());
       }
     } catch (error) {
-      console.error('Error updating user profile:', error);
+      console.error('Ошибка при обновлении профиля пользователя:', error);
     }
   };
 
-  const handleCancel = (e: SyntheticEvent) => {
+  const handleCancel = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormValue({
       name: user?.name || '',

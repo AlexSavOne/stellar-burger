@@ -1,5 +1,5 @@
 // src\pages\register\register.tsx
-import { FC, SyntheticEvent, useState, useEffect } from 'react';
+import { FC, FormEvent, useState, useEffect } from 'react';
 import { RegisterUI } from '@ui-pages';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../services/authSlice';
@@ -22,7 +22,7 @@ export const Register: FC = () => {
     }
   }, [isAuthenticated, navigate]);
 
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(registerUser({ email, name: userName, password }));
   };

@@ -12,6 +12,12 @@ interface OrdersState {
   error: string | null;
 }
 
+interface OrdersPayload {
+  orders: TOrder[];
+  total: number;
+  totalToday: number;
+}
+
 const initialState: OrdersState = {
   orders: [],
   currentOrder: null,
@@ -45,14 +51,7 @@ const ordersSlice = createSlice({
   name: 'orders',
   initialState,
   reducers: {
-    setOrders(
-      state,
-      action: PayloadAction<{
-        orders: TOrder[];
-        total: number;
-        totalToday: number;
-      }>
-    ) {
+    setOrders(state, action: PayloadAction<OrdersPayload>) {
       state.orders = action.payload.orders;
       state.total = action.payload.total;
       state.totalToday = action.payload.totalToday;

@@ -82,8 +82,6 @@ export const checkAuth = createAsyncThunk(
         const response = await getUserApi();
         return response.user;
       } catch (error) {
-        removeUserFromLocalStorage();
-        deleteCookie('accessToken');
         throw new Error('Ошибка аутентификации пользователя');
       }
     } else {
@@ -111,6 +109,7 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.user = null;
       removeUserFromLocalStorage();
+      deleteCookie('accessToken');
     }
   },
   extraReducers: (builder) => {

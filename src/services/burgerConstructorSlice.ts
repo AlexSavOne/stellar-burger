@@ -1,8 +1,8 @@
 // файл: stellar-burgers\src\services\burgerConstructorSlice.ts
 
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { TConstructorIngredient } from '@utils-types';
-import { orderBurgerApi } from '@api';
+import { TConstructorIngredient, TOrder } from '@utils-types';
+import { orderBurgerApi, TNewOrderResponse } from '@api';
 
 interface ConstructorState {
   constructorItems: {
@@ -10,7 +10,7 @@ interface ConstructorState {
     ingredients: TConstructorIngredient[];
   };
   orderRequest: boolean;
-  orderModalData: any;
+  orderModalData: TOrder | null;
   orderError: string | null;
 }
 
@@ -40,8 +40,13 @@ const burgerConstructorSlice = createSlice({
   name: 'burgerConstructor',
   initialState,
   reducers: {
-    setConstructorItems(state, action: PayloadAction<any>) {
-      if (action.payload.type === 'bun') {
+    setConstructorItems(
+      state,
+      action: PayloadAction<TConstructorIngredient | TConstructorIngredient[]>
+    ) {
+      if (Array.isArray(action.payload)) {
+        state.constructorItems.ingredients.push(...action.payload);
+      } else if (action.payload.type === 'bun') {
         state.constructorItems.bun = action.payload;
       } else {
         state.constructorItems.ingredients.push(action.payload);
@@ -68,7 +73,7 @@ const burgerConstructorSlice = createSlice({
         state.constructorItems.ingredients[index] = temp;
       }
     },
-    setOrderModalData(state, action: PayloadAction<any>) {
+    setOrderModalData(state, action: PayloadAction<TOrder>) {
       state.orderModalData = action.payload;
     },
     clearOrderModalData(state) {
@@ -81,11 +86,14 @@ const burgerConstructorSlice = createSlice({
         state.orderRequest = true;
         state.orderError = null;
       })
-      .addCase(placeOrder.fulfilled, (state, action) => {
-        state.orderRequest = false;
-        state.orderModalData = action.payload;
-        state.constructorItems = initialState.constructorItems;
-      })
+      .addCase(
+        placeOrder.fulfilled,
+        (state, action: PayloadAction<TNewOrderResponse>) => {
+          state.orderRequest = false;
+          state.orderModalData = action.payload.order;
+          state.constructorItems = initialState.constructorItems;
+        }
+      )
       .addCase(placeOrder.rejected, (state, action) => {
         state.orderRequest = false;
         state.orderError = action.payload as string;
@@ -101,4 +109,5 @@ export const {
   setOrderModalData,
   clearOrderModalData
 } = burgerConstructorSlice.actions;
+
 export default burgerConstructorSlice.reducer;

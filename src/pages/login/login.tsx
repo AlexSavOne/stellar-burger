@@ -1,6 +1,6 @@
 // src/pages/login/login.tsx
 
-import { FC, SyntheticEvent, useState, useEffect } from 'react';
+import { FC, useState, useEffect, FormEvent } from 'react';
 import { LoginUI } from '@ui-pages';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../services/authSlice';
@@ -25,7 +25,7 @@ export const Login: FC = () => {
     }
   }, [isAuthenticated, navigate, from]);
 
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(loginUser({ email, password }));
   };
