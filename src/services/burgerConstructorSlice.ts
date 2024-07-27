@@ -1,8 +1,8 @@
-// файл: stellar-burgers\src\services\burgerConstructorSlice.ts
+// stellar-burgers\src\services\burgerConstructorSlice.ts
 
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { TConstructorIngredient, TOrder } from '@utils-types';
-import { orderBurgerApi, TNewOrderResponse } from '@api';
+import { TConstructorIngredient, TOrder } from '../utils/types';
+import { orderBurgerApi, TNewOrderResponse } from '../utils/burger-api';
 
 interface ConstructorState {
   constructorItems: {
@@ -14,7 +14,7 @@ interface ConstructorState {
   orderError: string | null;
 }
 
-const initialState: ConstructorState = {
+export const initialState: ConstructorState = {
   constructorItems: {
     bun: null,
     ingredients: []

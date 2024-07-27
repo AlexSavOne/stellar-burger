@@ -1,4 +1,5 @@
 // src/services/authSlice.ts
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import {
   loginUserApi,
@@ -24,7 +25,7 @@ interface AuthState {
   error: string | null;
 }
 
-const initialState: AuthState = {
+export const initialState: AuthState = {
   isAuthenticated: !!localStorage.getItem('refreshToken'),
   user: getUserFromLocalStorage(),
   loading: false,

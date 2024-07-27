@@ -1,4 +1,4 @@
-// файл src\components\ui\burger-ingredient\burger-ingredient.tsx
+// src/components/ui/burger-ingredient/burger-ingredient.tsx
 
 import React, { FC, memo } from 'react';
 import { Link } from 'react-router-dom';
@@ -16,7 +16,7 @@ export const BurgerIngredientUI: FC<TBurgerIngredientUIProps> = memo(
     const { price, name, _id } = ingredient;
 
     return (
-      <li className={styles.container}>
+      <li className={styles.container} data-cy='ingredient'>
         <Link
           className={styles.article}
           to={`/ingredients/${_id}`}

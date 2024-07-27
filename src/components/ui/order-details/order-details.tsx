@@ -1,3 +1,5 @@
+// src/components/ui/pages/order-details/order-details.tsx
+
 import React from 'react';
 import styles from './order-details.module.css';
 import doneImg from '../../../images/done.svg';
@@ -6,8 +8,11 @@ import { OrderDetailsUIProps } from './type';
 export const OrderDetailsUI: React.FC<OrderDetailsUIProps> = ({
   orderNumber
 }) => (
-  <>
-    <h2 className={`${styles.title} text text_type_digits-large mt-2 mb-4`}>
+  <div data-cy='modal'>
+    <h2
+      className={`${styles.title} text text_type_digits-large mt-2 mb-4`}
+      data-cy='number'
+    >
       {orderNumber}
     </h2>
     <p className='text text_type_main-medium'>идентификатор заказа</p>
@@ -22,5 +27,5 @@ export const OrderDetailsUI: React.FC<OrderDetailsUIProps> = ({
     <p className={`${styles.text} text text_type_main-default`}>
       Дождитесь готовности на орбитальной станции
     </p>
-  </>
+  </div>
 );

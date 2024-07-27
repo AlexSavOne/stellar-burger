@@ -18,7 +18,7 @@ interface OrdersPayload {
   totalToday: number;
 }
 
-const initialState: OrdersState = {
+export const initialState: OrdersState = {
   orders: [],
   currentOrder: null,
   total: 0,
