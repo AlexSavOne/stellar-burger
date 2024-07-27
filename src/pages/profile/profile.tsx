@@ -1,4 +1,4 @@
-import { FC, FormEvent, useEffect, useState } from 'react';
+import { FC, SyntheticEvent, useEffect, useState, ChangeEvent } from 'react';
 import { ProfileUI } from '@ui-pages';
 import { useDispatch, useSelector } from '../../hooks/hooks';
 import { updateUserApi, getUserApi } from '../../utils/burger-api';
@@ -51,7 +51,7 @@ export const Profile: FC = () => {
     fetchData();
   }, []);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
     const userDataToUpdate = {
@@ -71,7 +71,7 @@ export const Profile: FC = () => {
     }
   };
 
-  const handleCancel = (e: FormEvent<HTMLFormElement>) => {
+  const handleCancel = (e: SyntheticEvent) => {
     e.preventDefault();
     setFormValue({
       name: user?.name || '',
@@ -81,7 +81,7 @@ export const Profile: FC = () => {
     setIsFormChanged(false);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormValue((prevState) => ({
       ...prevState,
