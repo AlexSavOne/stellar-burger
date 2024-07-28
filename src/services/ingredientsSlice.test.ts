@@ -6,10 +6,10 @@ import ingredientsReducer, {
   setMains,
   setSauces,
   setLoading,
-  setError
+  setError,
+  fetchIngredients
 } from './ingredientsSlice';
 import { TIngredient } from '../utils/types';
-import { ThunkMiddleware } from 'redux-thunk';
 
 describe('ingredientsSlice', () => {
   const testIngredient: TIngredient = {
@@ -52,5 +52,31 @@ describe('ingredientsSlice', () => {
   it('should handle setError action', () => {
     const newState = ingredientsReducer(initialState, setError(true));
     expect(newState.hasError).toBe(true);
+  });
+
+  describe('fetchIngredients async thunk', () => {
+    it('should handle fetchIngredients.pending action', () => {
+      const action = { type: fetchIngredients.pending.type };
+      const newState = ingredientsReducer(initialState, action);
+      expect(newState.isLoading).toBe(true);
+      expect(newState.hasError).toBe(false);
+    });
+
+    it('should handle fetchIngredients.fulfilled action', () => {
+      const action = {
+        type: fetchIngredients.fulfilled.type,
+        payload: [testIngredient]
+      };
+      const newState = ingredientsReducer(initialState, action);
+      expect(newState.isLoading).toBe(false);
+      expect(newState.ingredients).toEqual([testIngredient]);
+    });
+
+    it('should handle fetchIngredients.rejected action', () => {
+      const action = { type: fetchIngredients.rejected.type };
+      const newState = ingredientsReducer(initialState, action);
+      expect(newState.isLoading).toBe(false);
+      expect(newState.hasError).toBe(true);
+    });
   });
 });
