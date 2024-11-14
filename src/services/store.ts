@@ -1,12 +1,22 @@
-import { configureStore } from '@reduxjs/toolkit';
+// файл: stellar-burgers\src\services\store.ts
 
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import authReducer from './authSlice';
+import ingredientsReducer from './ingredientsSlice';
+import ordersReducer from './ordersSlice';
+import burgerConstructorReducer from './burgerConstructorSlice';
 import {
   TypedUseSelectorHook,
   useDispatch as dispatchHook,
   useSelector as selectorHook
 } from 'react-redux';
 
-const rootReducer = () => {}; // Заменить на импорт настоящего редьюсера
+export const rootReducer = combineReducers({
+  auth: authReducer,
+  ingredients: ingredientsReducer,
+  orders: ordersReducer,
+  burgerConstructor: burgerConstructorReducer
+});
 
 const store = configureStore({
   reducer: rootReducer,
@@ -17,7 +27,7 @@ export type RootState = ReturnType<typeof rootReducer>;
 
 export type AppDispatch = typeof store.dispatch;
 
-export const useDispatch: () => AppDispatch = () => dispatchHook();
+export const useDispatch: () => AppDispatch = () => dispatchHook<AppDispatch>();
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
 
 export default store;

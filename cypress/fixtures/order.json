@@ -1,0 +1,42 @@
+{
+  "success": true,
+  "name": "Флюоресцентный люминесцентный бургер",
+  "order": {
+    "createdAt": "2024-07-21T09:54:48.530Z",
+    "ingredients": [
+      {
+        "_id": "ingredient1",
+        "name": "Летучая булочка",
+        "type": "bun",
+        "price": 150,
+        "image": "url_to_image1"
+      },
+      {
+        "_id": "ingredient2",
+        "name": "Котлета из сои",
+        "type": "main",
+        "price": 500,
+        "image": "url_to_image2"
+      },
+      {
+        "_id": "ingredient3",
+        "name": "Огурцы маринованные",
+        "type": "sauce",
+        "price": 100,
+        "image": "url_to_image3"
+      }
+    ],
+    "name": "Флюоресцентный люминесцентный бургер",
+    "number": 46774,
+    "owner": {
+      "name": "asfgasdff1fdsd",
+      "email": "qweqwe@qweqwe.com",
+      "createdAt": "2024-07-21T09:54:02.943Z",
+      "updatedAt": "2024-07-21T09:54:02.943Z"
+    },
+    "price": 2964,
+    "status": "done",
+    "updatedAt": "2024-07-21T09:54:48.979Z",
+    "_id": "669cdae8119d45001b4fa899"
+  }
+}
